@@ -1,0 +1,45 @@
+@import "../style/variable.scss";
+@import "../style/base.scss";
+
+.App {
+    @include flex-center;
+    width: 80%;
+    img {
+        align-self: center;
+    }
+    
+    .title {
+        letter-spacing: 0.1em;  
+        text-align: center;
+    }
+
+    .subtitle {
+        font-weight: bolder;
+        text-align: center;
+    }
+
+    span {
+        color: $color-success;
+    }
+
+    p {
+        color: $color-text-secondary
+    }
+
+    .section-out-of-the-box {
+        @include flex-center(center, center, row);
+
+        max-width: 50%;
+        h3 {
+            color: $color-success;
+        }
+        
+        padding: $padding-primary;
+
+        p {
+            font-weight: lighter;
+            font-style: italic;
+            font-size: small;
+        }
+    }
+}

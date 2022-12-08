@@ -1,0 +1,29 @@
+@import "./style/variable.scss";
+@import "./style/base.scss";
+
+@font-face {
+    font-family: SourceCodePro;
+    src: url('./assets/fonts/SourceCodePro.ttf')
+}
+
+html {
+    height: 100vh;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    
+    font-family: 'SourceCodePro', sans-serif;
+    
+    background-color: $color-dark;
+    color: $color-white;
+
+    #root {
+        @include flex-center(center, center, row);
+        
+    }
+
+}
+
