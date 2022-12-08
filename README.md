@@ -1,16 +1,9 @@
-# Webpack react template
+# Esper Text editor
+ 
+ > Feature under development
 
-This is a template to start up a react application using webpack to have full control of your application from dev process to build sizes.
-
- It comes with few things out of the box 🎉
-
- - Support to typescript
- - Scss preprocessor
- - Handle image json and font files
- - Code split
- - Minimal Eslint setup
- - Husk pre-commit to check on Eslint
- - Support Unit Test with Jest and React Testing Library
+ Esper Text Editor is a text editor based on doom blocks; Every paragraph is a specific doom component with distinguish properties.
+ More about to come...
 
  # Run the template
 
