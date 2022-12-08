@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BlockContainer } from '../BlockContainer';
 import { EsperBlock } from '../sharedTypes';
 import './EditorContainer.scss';
 
@@ -17,7 +18,7 @@ export const EditorContainer = ()=> {
             >
             Editor container
             <div>
-                {blocks.map((block)=> <p key={block.id}>new block: {block.id}</p>)}
+                {blocks.map((block)=> <BlockContainer key={block.id} {...block} />)}
             </div>
         </div>
     )
