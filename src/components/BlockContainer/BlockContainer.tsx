@@ -6,6 +6,11 @@ type BlockContainerProps = EsperBlock;
 export const BlockContainer = ({ id }: BlockContainerProps)=> {
     
     return (
-        <div className='BlockContainer'>Block container: { id }</div>
+        <div
+            onClick={(e)=> e.stopPropagation() }
+            className='BlockContainer'
+            >
+                Block container: { id }
+            </div>
     )
 }
