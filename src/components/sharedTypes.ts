@@ -1,3 +1,3 @@
-export interface Block {
+export interface EsperBlock {
     id: string
 }
