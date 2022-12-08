@@ -4,6 +4,8 @@
 .App {
     @include flex-center;
     width: 80%;
+    height: 100vh;
+    
     img {
         align-self: center;
     }
