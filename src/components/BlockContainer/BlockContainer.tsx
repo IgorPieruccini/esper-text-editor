@@ -1,5 +1,6 @@
 import React from 'react';
 import { EsperBlock } from '../sharedTypes';
+import "./BlockContainer.scss";
 
 type BlockContainerProps = EsperBlock;
 
