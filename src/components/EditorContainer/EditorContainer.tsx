@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BlockContainer } from '../BlockContainer';
 import { EsperBlock } from '../sharedTypes';
 import './EditorContainer.scss';
@@ -10,6 +10,15 @@ export const EditorContainer = ()=> {
     const OnClickEditorContainer = ()=> {
         setBlocks((old)=> [...old, { id: Math.random().toString()}])
     }
+
+    useEffect(()=> {
+        // eslint-disable-next-line no-undef
+        document.addEventListener('keypress', (ev: KeyboardEvent) => {
+            if (ev.key === 'Enter') {
+                setBlocks((old)=> [...old, { id: Math.random().toString()}])
+            }
+        });
+    }, [])
 
     return (
         <div 
@@ -23,10 +32,3 @@ export const EditorContainer = ()=> {
         </div>
     )
 }
-
-/**
- * 
- * if the user clicks at the container
- * create a block
- * 
- */
