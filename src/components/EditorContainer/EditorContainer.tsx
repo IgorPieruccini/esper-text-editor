@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { BlockContainer } from '../BlockContainer';
 import { EsperBlock } from '../sharedTypes';
 import './EditorContainer.scss';
@@ -6,28 +6,37 @@ import './EditorContainer.scss';
 export const EditorContainer = ()=> {
 
     const [ blocks, setBlocks ] = useState<Array<EsperBlock>>([]);
+    const focusOn  = useRef<string | null>(null);
 
-    const OnClickEditorContainer = ()=> {
+    const addBlock = ()=> {
         setBlocks((old)=> [...old, { id: Math.random().toString()}])
     }
 
-    useEffect(()=> {
-        // eslint-disable-next-line no-undef
-        document.addEventListener('keypress', (ev: KeyboardEvent) => {
-            if (ev.key === 'Enter') {
-                setBlocks((old)=> [...old, { id: Math.random().toString()}])
-            }
-        });
-    }, [])
+    const OnClickEditorContainer = ()=> {
+        addBlock();
+    }
 
+    const OnBlockFocus = (id: string)=> {
+        focusOn.current = id;
+    }
+    
     return (
-        <div 
+        <div
             className='EditorContainer'
             onClick={OnClickEditorContainer}
             >
             Editor container
-            <div>
-                {blocks.map((block)=> <BlockContainer key={block.id} {...block} />)}
+            <div
+                contentEditable={true}
+                suppressContentEditableWarning={true}
+            >
+                { blocks.map((block)=> 
+                    <BlockContainer
+                        key={block.id}
+                        onFocus={OnBlockFocus}
+                        {...block} 
+                    />
+                )}
             </div>
         </div>
     )

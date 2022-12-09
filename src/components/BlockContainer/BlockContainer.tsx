@@ -1,28 +1,24 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { EsperBlock } from '../sharedTypes';
 import "./BlockContainer.scss";
 
-type BlockContainerProps = EsperBlock;
+type BlockContainerProps = EsperBlock & {
+    // eslint-disable-next-line no-unused-vars
+    onFocus: (id: string)=> void,
+};
 
-export const BlockContainer = ({ id }: BlockContainerProps)=> {
+export const BlockContainer = ({ id, onFocus }: BlockContainerProps)=> {
     
-    const ref = useRef<HTMLDivElement>();
-
-    useEffect(()=> {
-        if (ref.current) {
-            ref.current.focus();
-            setTimeout(()=>  ref.current.removeChild(ref.current.childNodes[0]) , 1);
-        }
-    }, [])
-
     return (
         <div
             id={id}
-            ref={ref}
             contentEditable={true}
             suppressContentEditableWarning={true}
-            onClick={(e)=> e.stopPropagation() }
+            onClick={(e)=> {
+                e.stopPropagation();
+                onFocus(id);
+            }}
             className='BlockContainer'
             />
-    )
+        )
 }
