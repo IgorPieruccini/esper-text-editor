@@ -2,12 +2,9 @@ import React from 'react';
 import { EsperBlock } from '../sharedTypes';
 import "./BlockContainer.scss";
 
-type BlockContainerProps = EsperBlock & {
-    // eslint-disable-next-line no-unused-vars
-    onFocus: (id: string)=> void,
-};
+type BlockContainerProps = EsperBlock;
 
-export const BlockContainer = ({ id, onFocus }: BlockContainerProps)=> {
+export const BlockContainer = ({ id }: BlockContainerProps)=> {
     
     return (
         <div
@@ -16,7 +13,6 @@ export const BlockContainer = ({ id, onFocus }: BlockContainerProps)=> {
             suppressContentEditableWarning={true}
             onClick={(e)=> {
                 e.stopPropagation();
-                onFocus(id);
             }}
             className='BlockContainer'
             />
