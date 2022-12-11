@@ -44,9 +44,10 @@ export const EditorContainer = ()=> {
             >
             Editor container
             
-            { showCommandPanel && <CommandPanel {...showCommandPanel} /> }
+            { showCommandPanel && <CommandPanel {...showCommandPanel} commands={['/divider', '/h3']} /> }
             
             <div
+                className='editorTextArea'
                 contentEditable={true}
                 suppressContentEditableWarning={true}
             >
