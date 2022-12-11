@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { BlockContainer } from '../BlockContainer';
-import { EsperBlock } from '../sharedTypes';
+import { CommandPanel } from '../CommandPanel';
+import { EsperBlock, Vector2 } from '../sharedTypes';
 import './EditorContainer.scss';
 
 export const EditorContainer = ()=> {
 
+    const [ showCommandPanel, setShowCommandPanel ] = useState<{position: Vector2} | null>();
     const [ blocks, setBlocks ] = useState<Array<EsperBlock>>([]);
     const editorRef = useRef<HTMLDivElement>();
-    const [ showCommandPanel, setShowCommandPanel ] = useState<{position: {x: number, y: number}} | null>();
 
     const addBlock = ()=> {
         setBlocks((old)=> [...old, { id: Math.random().toString()}])
@@ -17,17 +18,17 @@ export const EditorContainer = ()=> {
         addBlock();
     }
 
-    const openCommandPanel = (position: { x: number, y: number }) => {
+    const openCommandPanel = (position: Vector2) => {
         setShowCommandPanel({position});
     }
 
     useEffect(()=> {
         /** detect when user want to open the command panel */
         if (editorRef.current) {
-            editorRef.current.addEventListener("keyup", (ev)=> {
-                if (ev.key === "/") {
+            editorRef.current.addEventListener('keyup', (ev)=> {
+                if (ev.key === '/') {
                     const element = window.getSelection().focusNode.parentElement;
-                    const position = {x: element.offsetLeft, y: element.offsetHeight};
+                    const position = {x: element.offsetLeft, y: element.offsetTop};
                     openCommandPanel(position);         
                 }
             })
@@ -42,7 +43,9 @@ export const EditorContainer = ()=> {
             onClick={OnClickEditorContainer}
             >
             Editor container
-            { showCommandPanel && <div>commandPanel</div>}
+            
+            { showCommandPanel && <CommandPanel {...showCommandPanel} /> }
+            
             <div
                 contentEditable={true}
                 suppressContentEditableWarning={true}
@@ -54,6 +57,7 @@ export const EditorContainer = ()=> {
                     />
                 )}
             </div>
+
         </div>
     )
 }
