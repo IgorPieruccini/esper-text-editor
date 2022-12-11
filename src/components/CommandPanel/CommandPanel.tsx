@@ -29,8 +29,14 @@ export const CommandPanel = ({position, commands, onClose}: CommandPanelProps)=>
         }
 
         const element = window.getSelection().focusNode.parentElement;
+
+        if (element.id === 'editorTextArea') {
+            onClose();
+            return;
+        }
+
         const text = element.innerHTML;
-                    
+
         if (!text.includes('/')) {
             onClose();
             return;

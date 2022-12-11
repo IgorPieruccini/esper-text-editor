@@ -55,6 +55,7 @@ export const EditorContainer = ()=> {
                 
                 <div
                     className='editorTextArea'
+                    id='editorTextArea'
                     contentEditable={true}
                     suppressContentEditableWarning={true}
                     >
