@@ -22,20 +22,28 @@ export const CommandPanel = ({position, commands, onClose}: CommandPanelProps)=>
         return commands.filter(cmd => cmd.includes(commandText));
     }, [commandText])
 
-    const onType = useCallback(()=> {
+    const onType = useCallback((ev: KeyboardEvent)=> {
+        if (ev.key === 'Escape') {
+            onClose();
+            return;
+        }
+
         const element = window.getSelection().focusNode.parentElement;
         const text = element.innerHTML;
                     
         if (!text.includes('/')) {
             onClose();
+            return;
         }
 
-        const regex = /\/\w+/g
-        const commandText = text.match(regex);
-        
-        if (commandText) {
-            if(commandText) {
-                setCommandText(commandText[0]);
+        const allCommands = text.split('/');
+        if (allCommands.length === 0) return;
+
+        const lastCommandText = `/${allCommands[allCommands.length -1]}`;
+
+        if (lastCommandText) {
+            if(lastCommandText) {
+                setCommandText(lastCommandText);
             }
         } else {
             setCommandText('');
