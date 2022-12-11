@@ -37,26 +37,35 @@ export const EditorContainer = ()=> {
     }, [editorRef.current])
 
     return (
-        <div
-            ref={editorRef}
-            className='EditorContainer'
-            onClick={OnClickEditorContainer}
-            >
-            Editor container
-            
-            { showCommandPanel && <CommandPanel {...showCommandPanel} commands={['/divider', '/h3']} /> }
-            
-            <div
-                className='editorTextArea'
-                contentEditable={true}
-                suppressContentEditableWarning={true}
-            >
-                { blocks.map((block)=> 
-                    <BlockContainer
-                        key={block.id}
-                        {...block} 
+        <div className='EditorContainer'>
+            { showCommandPanel && 
+                <CommandPanel 
+                    {...showCommandPanel}
+                    commands={['/divider', '/h3']}
+                    onClose={()=> setShowCommandPanel(null)}
                     />
-                )}
+            }
+
+            <div
+                ref={editorRef}
+                onClick={OnClickEditorContainer}
+                >
+                Editor container
+            
+                
+                <div
+                    className='editorTextArea'
+                    contentEditable={true}
+                    suppressContentEditableWarning={true}
+                    >
+                    { blocks.map((block)=> 
+                        <BlockContainer
+                            key={block.id}
+                            {...block} 
+                        />
+                    )}
+                </div>
+
             </div>
 
         </div>
