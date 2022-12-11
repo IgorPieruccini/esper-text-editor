@@ -1,0 +1,27 @@
+@import '../../style/variable.scss';
+@import '../../style/base.scss';
+
+.CommandPanel {
+    position: absolute;
+
+    .commandList {
+        @include flex-center(start, center, column);
+        
+        min-width: 300px;
+        padding: 5px;
+
+        border-color: $color-text-secondary;
+        border-radius: 3px;
+        background-color: $color-primary;
+
+        margin-top: 30px;
+
+        .commandOption {
+            margin: 2px;
+            padding: 2px 10px 2px 10px;
+        }
+
+    }
+
+}
+
