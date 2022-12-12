@@ -11,10 +11,11 @@ interface CommandPanelProps {
 }
 
 export const CommandPanel = ({position, commands, onClose}: CommandPanelProps)=> {
-
+    
     const [ commandText, setCommandText ] = useState<string>('');
+    const [ selectedCommand, setSelectedCommand ] = useState(0);
     const [ filterAttempt, setFilterAttempt ] = useState(0);
-
+    
     const filteredCommands = useMemo(()=> {
         const result = commands.filter(cmd => cmd.code.includes(commandText));
         if (result.length === 0) setFilterAttempt(old => old + 1);
@@ -22,7 +23,26 @@ export const CommandPanel = ({position, commands, onClose}: CommandPanelProps)=>
         return commands.filter(cmd => cmd.code.includes(commandText));
     }, [commandText])
 
-    const onType = useCallback((ev: KeyboardEvent)=> {
+    const onKeyDown = useCallback((ev: KeyboardEvent)=> {
+        if (ev.key === 'ArrowDown') {
+            ev.preventDefault();
+            setSelectedCommand((old) => {
+                return old + 1 < commands.length ? old + 1 : old
+            })
+            return;
+        }
+
+        if (ev.key === 'ArrowUp') {
+            ev.preventDefault();
+            setSelectedCommand((old) => {
+                return old -1 >= 0 ? old -1 : old
+            })
+            return;
+        }
+    },[]);
+
+    const onKeyUp = useCallback((ev: KeyboardEvent)=> {
+    
         if (ev.key === 'Escape') {
             onClose();
             return;
@@ -54,11 +74,17 @@ export const CommandPanel = ({position, commands, onClose}: CommandPanelProps)=>
         } else {
             setCommandText('');
         }
+        element.focus();
+
     }, [setCommandText])
 
     useEffect(()=> {
-        window.addEventListener('keyup', onType);
-        return ()=> window.removeEventListener('keyup', onType);
+        window.addEventListener('keyup', onKeyUp);
+        window.addEventListener('keydown', onKeyDown);
+        return ()=> {
+            window.removeEventListener('keyup', onKeyUp)
+            window.removeEventListener('keydown', onKeyDown)
+        }
     }, [setCommandText])
 
     useEffect(()=> {
@@ -74,11 +100,12 @@ export const CommandPanel = ({position, commands, onClose}: CommandPanelProps)=>
             >
             
             <div className='commandList'>
-                { filteredCommands.map((cmd) => {
+                { filteredCommands.map((cmd, i) => {
+                    const optionSelected = i === selectedCommand;
                     return (
                         <div
                             key={cmd.code}
-                            className='commandOption'
+                            className={`commandOption ${optionSelected ? 'selected' : ''}`}
                             >
                             {cmd.render}
                         </div>

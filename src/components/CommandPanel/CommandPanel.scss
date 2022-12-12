@@ -19,6 +19,12 @@
         .commandOption {
             margin: 2px;
             padding: 2px 10px 2px 10px;
+            border-radius: $radius-secondary;
+        }
+
+        .selected {
+            background-color: $color-dark;
+
         }
 
     }
