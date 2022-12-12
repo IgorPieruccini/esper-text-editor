@@ -16,7 +16,7 @@ export const baseCommands: Command[] = [
     render: <Header2/>
   },
   {
-    code: '/h2',
+    code: '/h3',
     render: <Header3/>
   },
 ]
