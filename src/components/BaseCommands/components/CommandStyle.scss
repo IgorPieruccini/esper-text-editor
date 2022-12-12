@@ -1,0 +1,13 @@
+@import '../../../style/variable.scss';
+@import '../../../style/base.scss';
+
+.Command {
+    line-height: 0px;
+    padding: $padding-secondary;
+    @include flex-center(start, center, column);
+    
+
+    .Title {
+        margin: 10px 0px 10px 0px;
+    }
+}

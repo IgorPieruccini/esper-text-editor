@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { BlockContainer } from '../BlockContainer';
 import { CommandPanel } from '../CommandPanel';
-import { baseCommands } from '../CommandPanel/BaseCommands';
+import { baseCommands } from '../BaseCommands/BaseCommands';
 import { EsperBlock, Vector2 } from '../sharedTypes';
 import './EditorContainer.scss';
 

@@ -8,10 +8,10 @@
         @include flex-center(start, center, column);
         
         min-width: 300px;
-        padding: 5px;
+        padding: $padding-primary;
 
         border-color: $color-text-secondary;
-        border-radius: 3px;
+        border-radius: $radius-primary;
         background-color: $color-primary;
 
         margin-top: 30px;
