@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { Vector2 } from '../sharedTypes';
+import { Command, Vector2 } from '../sharedTypes';
 import './CommandPanel.scss';
 
 /** max of attempts to filter a result before closing command panel */
 const MAX_FILTER_ATTEMPT = 3;
 interface CommandPanelProps {
     position: Vector2,
-    commands: string[],
+    commands: Command[],
     onClose: ()=> void
 }
 
@@ -16,10 +16,10 @@ export const CommandPanel = ({position, commands, onClose}: CommandPanelProps)=>
     const [ filterAttempt, setFilterAttempt ] = useState(0);
 
     const filteredCommands = useMemo(()=> {
-        const result = commands.filter(cmd => cmd.includes(commandText));
+        const result = commands.filter(cmd => cmd.code.includes(commandText));
         if (result.length === 0) setFilterAttempt(old => old + 1);
         if (result.length > 0) setFilterAttempt(0); 
-        return commands.filter(cmd => cmd.includes(commandText));
+        return commands.filter(cmd => cmd.code.includes(commandText));
     }, [commandText])
 
     const onType = useCallback((ev: KeyboardEvent)=> {
@@ -77,10 +77,10 @@ export const CommandPanel = ({position, commands, onClose}: CommandPanelProps)=>
                 { filteredCommands.map((cmd) => {
                     return (
                         <div
-                            key={cmd}
+                            key={cmd.code}
                             className='commandOption'
                             >
-                            {cmd}
+                            {cmd.render}
                         </div>
                     )
                 })}

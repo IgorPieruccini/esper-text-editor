@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { BlockContainer } from '../BlockContainer';
 import { CommandPanel } from '../CommandPanel';
+import { baseCommands } from '../CommandPanel/BaseCommands';
 import { EsperBlock, Vector2 } from '../sharedTypes';
 import './EditorContainer.scss';
 
@@ -41,7 +42,7 @@ export const EditorContainer = ()=> {
             { showCommandPanel && 
                 <CommandPanel 
                     {...showCommandPanel}
-                    commands={['/divider', '/h3']}
+                    commands={baseCommands}
                     onClose={()=> setShowCommandPanel(null)}
                     />
             }
