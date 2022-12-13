@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Command, Vector2 } from '../sharedTypes';
 import './CommandPanel.scss';
 
@@ -16,6 +16,7 @@ export const CommandPanel = ({position, commands, onClose, onAddBlock}: CommandP
     
     const [ commandText, setCommandText ] = useState<string>('');
     const [ selectedCommand, setSelectedCommand ] = useState(0);
+    const selectedCommandRef = useRef(0);
     const [ filterAttempt, setFilterAttempt ] = useState(0);
     
     const filteredCommands = useMemo(()=> {
@@ -29,7 +30,8 @@ export const CommandPanel = ({position, commands, onClose, onAddBlock}: CommandP
         if (ev.key === 'ArrowDown') {
             ev.preventDefault();
             setSelectedCommand((old) => {
-                return old + 1 < commands.length ? old + 1 : old
+                selectedCommandRef.current = old + 1 < commands.length ? old + 1 : old;
+                return selectedCommandRef.current;
             })
             return;
         }
@@ -37,7 +39,8 @@ export const CommandPanel = ({position, commands, onClose, onAddBlock}: CommandP
         if (ev.key === 'ArrowUp') {
             ev.preventDefault();
             setSelectedCommand((old) => {
-                return old -1 >= 0 ? old -1 : old
+                selectedCommandRef.current = old -1 >= 0 ? old -1 : old; 
+                return selectedCommandRef.current;
             })
             return;
         }
@@ -45,9 +48,8 @@ export const CommandPanel = ({position, commands, onClose, onAddBlock}: CommandP
         if (ev.key === 'Enter') {
             ev.preventDefault();
             
-            const command = commands[selectedCommand];
+            const command = commands[selectedCommandRef.current];
             if (!command) throw `Error adding a command`;
-
             onAddBlock(command.block);
             onClose();
             return;

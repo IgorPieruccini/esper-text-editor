@@ -6,7 +6,7 @@ export const baseCommands: Command[] = [
   {
     code: '/divider',
     render: <Divider/>,
-    block: <p>Block</p>
+    block: <p>Divider</p>
   },
   {
     code: '/h1',

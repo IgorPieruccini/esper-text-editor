@@ -9,11 +9,11 @@ import { UUID } from '../shared/utils';
 export const EditorContainer = ()=> {
 
     const [ showCommandPanel, setShowCommandPanel ] = useState<{position: Vector2} | null>();
-    const [ blocks, setBlocks ] = useState<Array<React.ReactElement>>([]);
+    const [ blocks, setBlocks ] = useState<Array<{id: string, element: ReactElement}>>([]);
     const editorRef = useRef<HTMLDivElement>();
 
     const addBlock = (element: ReactElement)=> {
-        setBlocks((old)=> [...old, element])
+        setBlocks((old)=> [...old, { id: UUID(), element }]);
     }
 
     const OnClickEditorContainer = ()=> {
@@ -62,7 +62,7 @@ export const EditorContainer = ()=> {
                     contentEditable={true}
                     suppressContentEditableWarning={true}
                     >
-                    { blocks.map(block => block) } 
+                    { blocks.map(block => <div key={block.id}>{block.element}</div>) } 
                 </div>
 
             </div>
