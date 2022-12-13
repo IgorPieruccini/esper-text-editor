@@ -1,22 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { BlockContainer } from '../BlockContainer';
 import { CommandPanel } from '../CommandPanel';
 import { baseCommands } from '../BaseCommands/BaseCommands';
-import { EsperBlock, Vector2 } from '../sharedTypes';
+import { Vector2 } from '../sharedTypes';
 import './EditorContainer.scss';
+import { UUID } from '../shared/utils';
 
 export const EditorContainer = ()=> {
 
     const [ showCommandPanel, setShowCommandPanel ] = useState<{position: Vector2} | null>();
-    const [ blocks, setBlocks ] = useState<Array<EsperBlock>>([]);
+    const [ blocks, setBlocks ] = useState<Array<React.ReactElement>>([]);
     const editorRef = useRef<HTMLDivElement>();
 
-    const addBlock = ()=> {
-        setBlocks((old)=> [...old, { id: Math.random().toString()}])
+    const addBlock = (element: ReactElement)=> {
+        setBlocks((old)=> [...old, element])
     }
 
     const OnClickEditorContainer = ()=> {
-        addBlock();
+        addBlock(<BlockContainer id={UUID()} />);
     }
 
     const openCommandPanel = (position: Vector2) => {
@@ -44,6 +45,7 @@ export const EditorContainer = ()=> {
                     {...showCommandPanel}
                     commands={baseCommands}
                     onClose={()=> setShowCommandPanel(null)}
+                    onAddBlock={addBlock}
                     />
             }
 
@@ -60,12 +62,7 @@ export const EditorContainer = ()=> {
                     contentEditable={true}
                     suppressContentEditableWarning={true}
                     >
-                    { blocks.map((block)=> 
-                        <BlockContainer
-                            key={block.id}
-                            {...block} 
-                        />
-                    )}
+                    { blocks.map(block => block) } 
                 </div>
 
             </div>

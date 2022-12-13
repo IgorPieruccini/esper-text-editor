@@ -1,8 +1,9 @@
 import React from 'react';
-import { EsperBlock } from '../sharedTypes';
 import "./BlockContainer.scss";
 
-type BlockContainerProps = EsperBlock;
+type BlockContainerProps = {
+    id: string
+};
 
 export const BlockContainer = ({ id }: BlockContainerProps)=> {
     

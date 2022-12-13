@@ -7,10 +7,12 @@ const MAX_FILTER_ATTEMPT = 3;
 interface CommandPanelProps {
     position: Vector2,
     commands: Command[],
-    onClose: ()=> void
+    onClose: ()=> void,
+    // eslint-disable-next-line no-unused-vars
+    onAddBlock: (block: React.ReactElement)=> void,
 }
 
-export const CommandPanel = ({position, commands, onClose}: CommandPanelProps)=> {
+export const CommandPanel = ({position, commands, onClose, onAddBlock}: CommandPanelProps)=> {
     
     const [ commandText, setCommandText ] = useState<string>('');
     const [ selectedCommand, setSelectedCommand ] = useState(0);
@@ -39,11 +41,23 @@ export const CommandPanel = ({position, commands, onClose}: CommandPanelProps)=>
             })
             return;
         }
+
+        if (ev.key === 'Enter') {
+            ev.preventDefault();
+            
+            const command = commands[selectedCommand];
+            if (!command) throw `Error adding a command`;
+
+            onAddBlock(command.block);
+            onClose();
+            return;
+        }
     },[]);
 
     const onKeyUp = useCallback((ev: KeyboardEvent)=> {
-    
+
         if (ev.key === 'Escape') {
+            
             onClose();
             return;
         }
@@ -74,7 +88,6 @@ export const CommandPanel = ({position, commands, onClose}: CommandPanelProps)=>
         } else {
             setCommandText('');
         }
-        element.focus();
 
     }, [setCommandText])
 
