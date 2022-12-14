@@ -12,16 +12,16 @@ export const baseCommands: Command[] = [
   {
     code: '/h1',
     render: <Header1/>,
-    block: <p>Header1</p>
+    block: <Block.Header1/>
   },
   {
     code: '/h2',
     render: <Header2/>,
-    block: <p>Header2</p>
+    block: <Block.Header2/>
   },
   {
     code: '/h3',
     render: <Header3/>,
-    block: <p>Header3</p>
+    block: <Block.Header3/>
   },
 ]
