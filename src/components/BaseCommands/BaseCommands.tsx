@@ -1,12 +1,13 @@
 import React from 'react';
 import { Command } from "../sharedTypes";
+import Block from './Blocks';
 import { Divider, Header1, Header2, Header3 } from './components';
 
 export const baseCommands: Command[] = [
   {
     code: '/divider',
     render: <Divider/>,
-    block: <p>Divider</p>
+    block: <Block.Divider />
   },
   {
     code: '/h1',
